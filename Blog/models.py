@@ -23,6 +23,8 @@ class Blog(models.Model):
     is_home = models.BooleanField(verbose_name="Ana səhifə aktiv")
     slug=models.SlugField(editable=False,unique=True,db_index=True,null=False)
     category=models.ForeignKey(Category,on_delete=models.CASCADE,null=True)
+    lastmodified=models.DateField("Sonuncu deyişiklik tarixi",auto_now=True)
+    borndate=models.DateField("Yaranma tarixi",auto_now_add=True,null=True)
 
     def __str__(self):
         return self.title

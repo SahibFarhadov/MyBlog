@@ -13,7 +13,8 @@
           {{blog.description|truncatewords:10|striptags|safe}}
         </div></p>
         <p class="card-text">
-          <small class="text-muted">Last updated 3 mins ago</small>
+          <small class="text-muted">Sonuncu dəfə <b>{{blog.lastmodified.isoformat}}</b> tarixində yenilənib</small><br>
+          <small class="text-muted">Blog <b>{{blog.borndate.isoformat}}</b> tarixində yaradıldı</small>
         </p>
       </div>
     </div>

@@ -31,9 +31,9 @@ def blog_details(request,_slug):
 def blogs_by_category(request,_slug):
 	categories = Category.objects.all()
 	selectedCategory=Category.objects.get(slug=_slug)
-	blog=Blog.objects.all()
+	blogs=Blog.objects.filter(category__slug=_slug)
 	context={
-		"blogs":blog,
+		"blogs":blogs,
 		"categories":categories,
 		"selectedCategory":selectedCategory
 	}
