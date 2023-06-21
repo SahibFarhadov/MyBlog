@@ -1,8 +1,10 @@
 {% load static %}
-<div class="card mb-3 mt-3">
+<div class="card mb-3 mt-3 p-3">
   <div class="row g-0 mt-1 ms-1">
     <div class="col-md-4">
-      <img src="{{blog.image.url}}" class="img-fluid rounded-start" alt="{{blog.title}}">
+      <a href="{% url 'blog-details' blog.slug %}">
+        <img src="{{blog.image.url}}" class="img-fluid rounded-start" alt="{{blog.title}}">
+      </a>
     </div>
     <div class="col-md-8">
       <div class="card-body">
