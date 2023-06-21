@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{%static 'blog/css/blog-details.css'%}">
+{% endblock  %}
+{% block title %}
+    Elektroblog | Məqalə detalları | {{blog.title}} 
+{% endblock %}
+{%block content%}
+<div class="container-fluid mt-4">
+    <div class="row border pt-2">
+        <div class="col-md-2 col-lg-2 col-xl-2 col-xxl-2" id="sol-element">
+            <div class="sol-element">
+                Sol elementler
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-8 col-xl-8 col-xxl-8">
+            <div class="content">
+                <div class="blg-img">
+                    <img class="img-fluid" src="{{blog.image.url}}" alt="{{blog.img}}">
+                </div>
+                <h2 class="title">{{blog.title}}</h2>
+                {{blog.description|safe}}
+            </div>
+        </div>
+        <div class="col-md-2 col-lg-2 col-xl-2 col-xxl-2" id="sag-element">
+            <div class="sag-element">
+                Sag elementler
+            </div>
+        </div>
+    </div>
+</div>
+
+{%include 'blog/partials/_footer.html'%}
+
+{% endblock %}
