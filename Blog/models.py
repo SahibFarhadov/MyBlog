@@ -26,6 +26,8 @@ class Blog(models.Model):
     lastmodified=models.DateField("Sonuncu deyişiklik tarixi",auto_now=True)
     borndate=models.DateField("Yaranma tarixi",auto_now_add=True,null=True)
     snippet=models.CharField(max_length=50,default="Oxumaq üçün klikləyin...")
+    likeSayi=models.PositiveIntegerField(default=0,verbose_name="Bəyənmə sayı",editable=False)
+    sevimliSayi=models.PositiveIntegerField(default=0,verbose_name="Sevimlilərə əlavə edilib",editable=False)
 
     def __str__(self):
         return self.title
@@ -33,4 +35,3 @@ class Blog(models.Model):
     def save(self,*args,**kwargs):
         self.slug = slugify(self.title)
         super().save(*args,**kwargs)
-

@@ -5,10 +5,11 @@ class BlogAdmin(admin.ModelAdmin):
     list_display=("title","is_active","is_home","slug")
     list_editable=("is_home","is_active")
     readonly_fields=("slug",)
-    list_filter=('category',)
+    list_filter=('category','likeSayi')
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display=("name","slug")
+
 admin.site.register(Blog,BlogAdmin)
 admin.site.register(Category,CategoryAdmin)
 
