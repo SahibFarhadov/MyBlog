@@ -4,20 +4,22 @@
 {% block title %}Elektroblog | Əsas səhifə{% endblock %}
 {% block content %}
 <div class="container-fluid mt-4">
-    <div class="row border">
-        <div class="col-sm-5 col-md-3">
+    <div class="row">
+        <div class="col-md-3">
             <div style="text-align:center">
-                <h2>
+                <div>
+                    <h2>
                     <p>
                         <strong class="kateqoriyaText">
                             Kateqoriyalar
                         </strong>
                     </p>
-                </h2>
-                <p>{%include 'Blog/partials/_categories.html'%}</p>
+                    </h2>
+                    <p>{%include 'Blog/partials/_categories.html'%}</p>
+                </div>
             </div>
         </div>
-        <div class="col-sm-7 col-md-9">
+        <div class="col-md-9">
             {% for blog in blogs %}
                 {% if blog.is_home %}
                     {% include 'Blog/partials/_blog.html' %}
