@@ -4,7 +4,27 @@
 {% block title %}Elektroblog | Daxil ol{% endblock %}
 {% block content %}
 <div class="container-fluid mt-4">
-    <h1>Login</h1>
+    <div class="container">
+        <div class="col">
+            <h1>Login</h1>
+            <hr>
+            {%if error%}
+                <div class="alert alert-danger">{{error}}</div>
+            {%endif%}
+            <form action="{%url 'login'%}" method="POST">
+                {%csrf_token%}
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" name="username">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Parol</label>
+                    <input type="password" class="form-control" name="password">
+                </div>
+                <input type="submit" value="login" class="btn btn-primary btn-lg mb-3">
+            </form>
+        </div>            
+    </div>
 </div>
 {%include 'blog/partials/_footer.html'%}
 {% endblock %}
