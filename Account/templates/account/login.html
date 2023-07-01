@@ -13,15 +13,21 @@
             {%endif%}
             <form action="{%url 'login'%}" method="POST">
                 {%csrf_token%}
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" name="username">
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="username" class="form-label" style="font-weight: bold;">Username</label>
+                            <input type="text" class="form-control" name="username" >
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="password" class="form-label" style="font-weight: bold;">Parol</label>
+                            <input type="password" class="form-control" name="password">
+                        </div>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Parol</label>
-                    <input type="password" class="form-control" name="password">
-                </div>
-                <input type="submit" value="login" class="btn btn-primary btn-lg mb-3">
+                <input type="submit" value="Daxil ol" class="btn btn-primary btn-lg mb-3">
             </form>
         </div>            
     </div>

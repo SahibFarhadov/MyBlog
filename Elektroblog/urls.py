@@ -8,4 +8,4 @@ urlpatterns = [
     path('',include('Blog.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('account/',include('Account.urls'))
-] +static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
