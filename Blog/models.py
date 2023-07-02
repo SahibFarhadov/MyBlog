@@ -1,9 +1,10 @@
 from django.db import models
 from django.utils.text import slugify
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.contrib.auth.models import User
 
 class Category(models.Model):
-    name=models.CharField(max_length=100)
+    name=models.CharField(max_length=100,verbose_name="Kateqoriya adı")
     slug=models.SlugField(null=False, editable=False,unique=True,db_index=True)
     
     def __str__(self):
@@ -21,13 +22,11 @@ class Blog(models.Model):
     description = RichTextUploadingField()
     is_active = models.BooleanField(verbose_name="Aktiv status")
     is_home = models.BooleanField(verbose_name="Ana səhifə aktiv")
-    slug=models.SlugField(editable=False,unique=True,db_index=True,null=False)
-    category=models.ForeignKey(Category,on_delete=models.CASCADE,null=True)
-    lastmodified=models.DateField("Sonuncu deyişiklik tarixi",auto_now=True)
-    borndate=models.DateField("Yaranma tarixi",auto_now_add=True,null=True)
-    snippet=models.CharField(max_length=50,default="Oxumaq üçün klikləyin...")
-    likeSayi=models.PositiveIntegerField(default=0,verbose_name="Bəyənmə sayı",editable=False)
-    sevimliSayi=models.PositiveIntegerField(default=0,verbose_name="Sevimlilərə əlavə edilib",editable=False)
+    slug = models.SlugField(editable=False,unique=True,db_index=True,null=False)
+    category = models.ForeignKey(Category,on_delete=models.CASCADE,null=True)
+    lastmodified = models.DateField("Sonuncu deyişiklik tarixi",auto_now=True)
+    borndate = models.DateField("Yaranma tarixi",auto_now_add=True,null=True)
+    snippet = models.CharField(max_length=50,default="Oxumaq üçün klikləyin...")
 
     def __str__(self):
         return self.title
@@ -35,3 +34,4 @@ class Blog(models.Model):
     def save(self,*args,**kwargs):
         self.slug = slugify(self.title)
         super().save(*args,**kwargs)
+

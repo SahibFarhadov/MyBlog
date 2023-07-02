@@ -9,16 +9,17 @@
       </button>
       <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
+          <h3 class="offcanvas-title" id="offcanvasDarkNavbarLabel" style="font-family: monospace;">
             {%if user.is_authenticated%}
-              <div>{{user.username|title}}</div>
+              <div>Salam, {{user.get_full_name}}</div>
             {%else%}
-              Qonaq
+              <div>Salam, ziyarətçi</div>
             {%endif%}
-          </h5>
+          </h3>
           <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="offcanvas" aria-label="Close" style="font-size:20px;"></button>
         </div>
         <div class="offcanvas-body">
+          <hr>
           <ul class="navbar-nav me-auto ">
             <li class="nav-item">
               <a class="nav-link" aria-current="page" href="{%url 'blogs'%}">
@@ -41,7 +42,7 @@
               <li class="nac-item">
                   <a class="nav-link" href="#">
                     <strong class="navbarLink">
-                      Salam, {{user.username|title}}
+                      Salam, {{user.get_full_name|title}}
                     </strong>
                   </a>
               </li>

@@ -1,14 +1,17 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import User
 from .models import Blog,Category
 
 class BlogAdmin(admin.ModelAdmin):
     list_display=("title","is_active","is_home","slug")
     list_editable=("is_home","is_active")
     readonly_fields=("slug",)
-    list_filter=('category','likeSayi')
+    list_filter=('category',)
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display=("name","slug")
+
 
 admin.site.register(Blog,BlogAdmin)
 admin.site.register(Category,CategoryAdmin)
