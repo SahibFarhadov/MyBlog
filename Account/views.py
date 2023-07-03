@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 #account app ucun login metodu
 def login_request(request):
@@ -16,16 +17,14 @@ def login_request(request):
 			return redirect("home")
 		else:
 			return render(request,"Account/login.html",{
-				"error":"İstifadəçi adı və ya parol yanlışdır"
+				"error":"İstifadəçi adı və ya parol yanlışdır",
+				"username":username
 				})
 	return render(request,"Account/login.html")
 
 # account app ucun register metodu
 def register_request(request):
 	if request.user.is_authenticated:
-		return redirect('home')
-	if request.method=="POST":
-		# qeydiyyat formundan melumatlarin alinmasi
 		name=request.POST["name"]
 		surname=request.POST["surname"]
 		nickname=request.POST["nickname"]
@@ -41,6 +40,7 @@ def register_request(request):
 			"email":email,
 			"errorMessage":errorMessage
 		}
+
 		if password==repassword:
 			if User.objects.filter(username=nickname).exists():
 				dataKeep["errorMessage"]="Daxil edilən istifadəçi adı artıq mövcuddur"
@@ -50,8 +50,8 @@ def register_request(request):
 				return render(request, "Account/register.html", dataKeep )
 			else:
 				user=User.objects.create_user(username=nickname,first_name=name,last_name=surname,password=password,email=email,is_active=False)	
-				return redirect("home")
-
+				return redirect("login")
+		
 	return render(request,"Account/register.html")
 
 #account app ucun logout metodu
