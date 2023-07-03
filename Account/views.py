@@ -49,11 +49,8 @@ def register_request(request):
 				dataKeep["errorMessage"]="Daxil edilən email ünvanı artıq istifadə edilmişdir"
 				return render(request, "Account/register.html", dataKeep )
 			else:
-				User.objects.create_user(username=nickname,first_name=name,last_name=surname,password=password,email=email)
-				newUser=User.objects.get(username=nickname)
-				newUser.is_active=False
-				newUser.save()
-				return redirect("login")
+				user=User.objects.create_user(username=nickname,first_name=name,last_name=surname,password=password,email=email,is_active=False)	
+				return redirect("home")
 
 	return render(request,"Account/register.html")
 

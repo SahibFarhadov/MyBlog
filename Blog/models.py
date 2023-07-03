@@ -26,7 +26,7 @@ class Blog(models.Model):
     category = models.ForeignKey(Category,on_delete=models.CASCADE,null=True)
     lastmodified = models.DateField("Sonuncu deyişiklik tarixi",auto_now=True)
     borndate = models.DateField("Yaranma tarixi",auto_now_add=True,null=True)
-    snippet = models.CharField(max_length=50,default="Oxumaq üçün klikləyin...")
+    snippet = models.CharField(max_length=50,default="Davamını oxumaq üçün klikləyin...")
 
     def __str__(self):
         return self.title
