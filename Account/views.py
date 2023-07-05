@@ -50,10 +50,10 @@ def register_request(request):
 				return render(request, "Account/register.html", dataKeep )
 			else:
 				User.objects.create_user(username=nickname,first_name=name,last_name=surname,password=password,email=email)
-				return redirect('login')
-			
-
-
+				newUser=User.objects.get(username=nickname)
+				newUser.is_active=False
+				newUser.save()
+				return redirect("login")
 
 	return render(request,"Account/register.html")
 
