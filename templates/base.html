@@ -11,10 +11,12 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-icons.css'%}">
         {% block styles %}{% endblock%}
         <title>{%block title%}{%endblock%}</title>
+        {%block scriptsontop%}{%endblock%}
     </head>
     <body>
         {% include 'partials/_navbar.html' %}
         {% block content %}{% endblock %}
         <script src="{% static 'scripts/bootstrap.bundle.min.js' %}"></script>
+        {%block scripts%}{%endblock%}
     </body>
 </html>

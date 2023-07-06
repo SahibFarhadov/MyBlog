@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Blog,Category
+from django.views.generic.edit import CreateView
 
+class BlogCreationView(CreateView):
+	model=Blog
+	fields=["title","image","description","category","is_active","is_home"]
 
 def home(request):
 	blogs=Blog.objects.all()
@@ -38,3 +42,6 @@ def blogs_by_category(request,_slug):
 		"selectedCategory":selectedCategory
 	}
 	return render(request,"blog/blogs_by_category.html",context)
+
+def meqale_yaz(request):
+	return render(request,'blog/meqale_yaz.html')

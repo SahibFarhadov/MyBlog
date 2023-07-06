@@ -1,0 +1,33 @@
+{%extends 'base.html'%}
+{% load static %}
+
+{% block content %}
+	<div class="container">
+		<div class="container mt-4">
+			<form method="post">
+				{% csrf_token %}
+			    <div class="mb-3">
+			    	<label class="form-label" for="title">Başlıq</label>
+			    	<input type="text" name="title" class="form-control">
+			    </div>
+			    <div class="mb-3">
+			    	<label class="form-label" for="title">Məqalə şəkli</label><br>
+			    	<input type="file" name="image" class="form-control">
+			    </div>
+			    <div class="mb-3">
+			    	<label class="form-label" for="title">Məqalə şəkli</label>
+			    	<textarea name="editor1" id="editor1" rows="10" cols="80">
+                This is my textarea to be replaced with CKEditor 4.
+            </textarea>
+			    </div>
+			    <input type="submit" value="Yadda saxla">
+			</form>
+</div>
+	</div>
+{% endblock %}
+
+{%block scriptsontop%}
+	<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+	<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+	<script type="text/javascript" src="{%static 'Blog/script/forckeditor.js'%}"></script>
+{%endblock%}
