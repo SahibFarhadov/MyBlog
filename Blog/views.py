@@ -1,12 +1,12 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render,redirect
 from .models import Blog,Category
 from django.views.generic.edit import CreateView
 
-class BlogCreationView(CreateView):
+class BlogCreateView(CreateView):
 	model=Blog
-	fields=["title","image","description","category","is_active","is_home"]
-
+	fields=["title","image","description","is_active","is_home","category"]
+	template_name_suffix="_create_form"
+	
 def home(request):
 	blogs=Blog.objects.all()
 	categories=Category.objects.all()

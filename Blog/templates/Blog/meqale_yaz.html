@@ -3,7 +3,7 @@
 
 {% block content %}
 	<div class="container">
-		<div class="container mt-4">
+		<div class="container mt-4 mb-3">
 			<form method="post">
 				{% csrf_token %}
 			    <div class="mb-3">
@@ -20,13 +20,14 @@
                 This is my textarea to be replaced with CKEditor 4.
             </textarea>
 			    </div>
-			    <input type="submit" value="Yadda saxla">
+			    <input type="submit" value="Yadda saxla" class="btn btn btn-success">
 			</form>
 </div>
 	</div>
 {% endblock %}
 
-{%block scriptsontop%}
+
+{%block scripts%}
 	<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
 	<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
 	<script type="text/javascript" src="{%static 'Blog/script/forckeditor.js'%}"></script>
