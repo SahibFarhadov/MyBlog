@@ -4,8 +4,8 @@ from django.views.generic.edit import CreateView
 
 class BlogCreateView(CreateView):
 	model=Blog
-	fields=["title","image","description","is_active","is_home","category"]
-	template_name_suffix="_create_form"
+	fields=["titleofblog","image","description","is_active","is_home","category"]
+	template_name="Blog/meqale_yaz.html"
 	
 def home(request):
 	blogs=Blog.objects.all()

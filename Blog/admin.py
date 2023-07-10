@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from .models import Blog,Category
 
 class BlogAdmin(admin.ModelAdmin):
-    list_display=("title","is_active","is_home","slug")
+    list_display=("titleofblog","is_active","is_home","slug")
     list_editable=("is_home","is_active")
     readonly_fields=("slug",)
     list_filter=('category',)
