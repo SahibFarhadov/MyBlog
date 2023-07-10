@@ -1,12 +1,14 @@
 from django.shortcuts import render,redirect
 from .models import Blog,Category
 from django.views.generic.edit import CreateView
+from .forms import AddBlogForm 
 
 class BlogCreateView(CreateView):
 	model=Blog
-	fields=["titleofblog","image","description","is_active","is_home","category"]
+	#fields=["titleofblog","image","description","is_active","is_home","category"]
 	template_name="Blog/meqale_yaz.html"
-	
+	form_class=AddBlogForm
+
 def home(request):
 	blogs=Blog.objects.all()
 	categories=Category.objects.all()

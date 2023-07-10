@@ -2,15 +2,16 @@
 {% load static %}
 
 {% block content %}
-	<div class="container">
+	<div class="container mb-3">
 		<form method="post" enctype="multipart/form-data">
 			{% csrf_token %}
 			{{form.media}}
 		    {{ form.as_p }}
-		    <input type="submit" value="Save">
+		    <input type="submit" value="Yadda saxla">
 		</form>
 	</div>
 {% endblock %}
 
-
-{%block scripts%}{%endblock%}
+{%block scripts%}
+	<script type="text/javascript" src="{%static 'Blog/script/meqaleyaz.js'%}"></script>
+{%endblock%}
