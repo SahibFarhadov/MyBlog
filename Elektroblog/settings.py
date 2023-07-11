@@ -31,16 +31,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'Blog',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Account',
+    'Blog',
     'ckeditor',
     'ckeditor_uploader',
-    'Account',
 ]
 
 MIDDLEWARE = [
@@ -136,6 +136,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CKEDITOR_CONFIGS={
     'fullconfig':{
-        'toolbar':'full'
+        'toolbar': 'full',
+        'height': 600,
+        'width': 1000,
     }
 }
