@@ -15,7 +15,6 @@ class Category(models.Model):
         self.slug=slugify(self.name)
         super().save(*args,**kwargs)
 
-
 class Blog(models.Model):
     titleofblog = models.CharField(max_length=150,verbose_name="Başlıq")
     image = models.ImageField(upload_to="blogs/%Y/%m",verbose_name="Şəkil")

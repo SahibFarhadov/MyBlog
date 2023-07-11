@@ -3,6 +3,8 @@ from .models import Blog,Category
 from django.views.generic.edit import CreateView,UpdateView
 from .forms import AddBlogForm
 from django.contrib.auth.models import User
+from Account import views as account_views
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class BlogUpdateView(UpdateView):
@@ -17,10 +19,9 @@ class BlogUpdateView(UpdateView):
 
 class BlogCreateView(CreateView):
 	model=Blog
-	#fields=["titleofblog","image","description","is_active","is_home","category"]
 	template_name="Blog/meqale_yaz.html"
 	form_class=AddBlogForm
-
+	success_url="/hesab/hesab-meqaleleri/"
 	def form_valid(self,form):
 		form.instance.user=self.request.user.myuser
 		return super().form_valid(form)
@@ -29,6 +30,17 @@ class BlogCreateView(CreateView):
 		if not request.user.is_authenticated:
 			return redirect("login")
 		return super().dispatch(request,*args,*kwargs)
+
+def delete_blog(request,_slug):
+	if request.user.is_authenticated:
+		try:
+			blog=Blog.objects.get(slug=_slug)
+			if blog.user == request.user.myuser:
+				blog.delete()
+		except ObjectDoesNotExist:
+			return account_views.hesab_meqaleleri(request)
+	return account_views.hesab_meqaleleri(request)
+
 
 def home(request):
 	blogs=Blog.objects.all()

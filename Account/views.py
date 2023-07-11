@@ -7,19 +7,21 @@ from Blog.models import Blog
 
 
 def hesab(request):
-	return render(request,"account/hesab.html",context={
+	if request.user.is_authenticated:
+		return render(request,"account/hesab.html",context={
 		"is_hesab":True,
 	})
+	return redirect("login")
 
 def hesab_meqaleleri(request):
 	if request.user.is_authenticated:
 		blogs=Blog.objects.filter(user=request.user.myuser)
 		context={
-			"blogs":blogs,
+			"blogs":blogs.order_by("lastmodified"),
 			"is_meqalelerim":True,
 		}
 		return render(request,"account/blog_in_hesab.html",context)
-	return render(request,"account/hesab.html")
+	return redirect("login")
 
 #account app ucun login metodu
 def login_request(request):
