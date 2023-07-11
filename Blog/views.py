@@ -8,6 +8,8 @@ class BlogCreateView(CreateView):
 	#fields=["titleofblog","image","description","is_active","is_home","category"]
 	template_name="Blog/meqale_yaz.html"
 	form_class=AddBlogForm
+	
+	
 
 def home(request):
 	blogs=Blog.objects.all()

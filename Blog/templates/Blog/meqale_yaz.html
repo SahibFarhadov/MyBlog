@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-	<div class="container mb-3">
+	<div class="container mb-3" id="id_meqale_yaz">
 		<form method="post" enctype="multipart/form-data">
 			{% csrf_token %}
 			{{form.media}}

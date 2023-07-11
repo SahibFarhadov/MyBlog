@@ -7,7 +7,6 @@ class AddBlogForm(forms.ModelForm):
 		fields=("titleofblog","image","description","is_active","is_home","category")
 		widgets={
 			'titleofblog':forms.TextInput(attrs={'class':'form-control'}),
-			
 		}
 
 """
