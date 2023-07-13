@@ -1,15 +1,34 @@
 from django.shortcuts import render,redirect
 from .models import Blog,Category
-from django.views.generic.edit import CreateView
-from .forms import AddBlogForm 
+from django.views.generic.edit import CreateView,UpdateView
+from .forms import AddBlogForm
+from django.contrib.auth.models import User
+
+
+class BlogUpdateView(UpdateView):
+	model=Blog
+	fields=["titleofblog","image","description","is_active","is_home","category",]
+	template_name="Blog/meqale_yenile.html"
+
+	def dispatch(self,request,*args,**kwargs):
+		if not request.user.is_authenticated:
+			return redirect("login")
+		return super().dispatch(request,*args,**kwargs)
 
 class BlogCreateView(CreateView):
 	model=Blog
 	#fields=["titleofblog","image","description","is_active","is_home","category"]
 	template_name="Blog/meqale_yaz.html"
 	form_class=AddBlogForm
-	
-	
+
+	def form_valid(self,form):
+		form.instance.user=self.request.user.myuser
+		return super().form_valid(form)
+
+	def dispatch(self,request,*args,**kwargs):
+		if not request.user.is_authenticated:
+			return redirect("login")
+		return super().dispatch(request,*args,*kwargs)
 
 def home(request):
 	blogs=Blog.objects.all()
@@ -31,8 +50,12 @@ def blogs(request):
 
 def blog_details(request,_slug):
 	blog=Blog.objects.get(slug=_slug)
+	userBlog=None
+	if blog.user is not None:
+		userBlog=blog.user.user
 	context={
-		"blog":blog
+		"blog":blog,
+		"userBlog":userBlog
 	}
 	return render(request,"blog/blog-details.html",context)
 

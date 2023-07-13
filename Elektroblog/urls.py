@@ -7,5 +7,5 @@ urlpatterns = [
     path('panel/', admin.site.urls),
     path('',include('Blog.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('account/',include('Account.urls'))
+    path('hesab/',include('Account.urls'))
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

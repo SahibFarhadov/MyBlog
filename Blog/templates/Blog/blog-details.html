@@ -11,7 +11,18 @@
     <div class="row border pt-2">
         <div class="col-md-2 col-lg-2 col-xl-2 col-xxl-2" id="sol-element">
             <div class="sol-element">
-                Sol elementler
+                <p>
+                    <div>
+                        {%if userBlog is not None%}
+                            Yazan: <b>{{userBlog.first_name|title}} {{userBlog.last_name|title}}</b>
+                        {%else%}
+                            Yazan: <b>Naməlum</b>
+                        {%endif%}
+                    </div>
+                <p>
+                    <strong>Yaradıldı: </strong>{{blog.lastmodified.isoformat}}
+                    <strong>Yeniləndi: </strong>{{blog.borndate.isoformat}}
+                </p>
             </div>
         </div>
         <div class="col-sm-12 col-lg-8 col-xl-8 col-xxl-8">
@@ -28,7 +39,9 @@
                     </div>
                 </div>
                 <h2 class="title">{{blog.titleofblog}}</h2>
-                {{blog.description|safe}}
+                <div class="container">
+                    {{blog.description|safe}}
+                </div>
             </div>
         </div>
         <div class="col-md-2 col-lg-2 col-xl-2 col-xxl-2" id="sag-element">

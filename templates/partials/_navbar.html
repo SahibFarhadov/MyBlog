@@ -11,7 +11,7 @@
         <div class="offcanvas-header">
           <h3 class="offcanvas-title" id="offcanvasDarkNavbarLabel" style="font-family: monospace;">
             {%if user.is_authenticated%}
-              <div>Salam, {{user.get_full_name}}</div>
+              <div>Salam, <b>{{user.get_full_name|title}}</b></div>
             {%else%}
               <div>Salam, əziz Qonaq</div>
             {%endif%}
@@ -48,7 +48,7 @@
 
           <ul class="navbar-nav ms-auto ">
             {%if user.is_authenticated%}
-              <li class="nac-item">
+              <li class="nav-item" id="mvOffcanvasLink">
                   <a class="nav-link" href="#">
                     <strong class="navbarLink">
                       Salam, {{user.get_full_name|title}}

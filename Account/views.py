@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from .models import MyUser
 
 #account app ucun login metodu
 def login_request(request):
@@ -24,7 +25,10 @@ def login_request(request):
 
 # account app ucun register metodu
 def register_request(request):
+
 	if request.user.is_authenticated:
+		return redirect("home")
+	if request.method=="POST":
 		name=request.POST["name"]
 		surname=request.POST["surname"]
 		nickname=request.POST["nickname"]
@@ -49,7 +53,7 @@ def register_request(request):
 				dataKeep["errorMessage"]="Daxil edilən email ünvanı artıq istifadə edilmişdir"
 				return render(request, "Account/register.html", dataKeep )
 			else:
-				user=User.objects.create_user(username=nickname,first_name=name,last_name=surname,password=password,email=email,is_active=False)	
+				user=User.objects.create_user(username=nickname,first_name=name,last_name=surname,password=password,email=email)
 				return redirect("login")
 		
 	return render(request,"Account/register.html")

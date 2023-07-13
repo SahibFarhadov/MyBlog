@@ -1,8 +1,8 @@
 from django.db import models
 from django.utils.text import slugify
 from ckeditor_uploader.fields import RichTextUploadingField
-from django.contrib.auth.models import User
 from django.urls import reverse
+from Account.models import MyUser
 
 class Category(models.Model):
     name=models.CharField(max_length=100,verbose_name="Kateqoriya adı")
@@ -27,9 +27,11 @@ class Blog(models.Model):
     lastmodified = models.DateField("Sonuncu deyişiklik tarixi",auto_now=True,blank=True,null=True)
     borndate = models.DateField("Yaranma tarixi",auto_now_add=True,blank=True,null=True)
     snippet = models.CharField(max_length=50,default="Davamını oxumaq üçün klikləyin...",blank=True,null=True)
+    user=models.ForeignKey(MyUser,on_delete=models.CASCADE,null=True)
+
 
     def __str__(self):
-        return self.title
+        return self.titleofblog
     
     def save(self,*args,**kwargs):
         self.slug = slugify(self.titleofblog)
