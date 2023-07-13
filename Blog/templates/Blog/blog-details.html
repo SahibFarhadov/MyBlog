@@ -6,6 +6,8 @@
 {% block title %}
     Elektroblog | Məqalə detalları | {{blog.title}} 
 {% endblock %}
+
+
 {%block content%}
 <div class="container-fluid mt-4">
     <div class="row border pt-2">
@@ -16,12 +18,12 @@
                         {%if userBlog is not None%}
                             Yazan: <b>{{userBlog.first_name|title}} {{userBlog.last_name|title}}</b>
                         {%else%}
-                            Yazan: <b>Naməlum</b>
+                            <div class="h5">Yazan: <b>Naməlum</b></div>
                         {%endif%}
                     </div>
                 <p>
-                    <strong>Yaradıldı: </strong>{{blog.lastmodified.isoformat}}
-                    <strong>Yeniləndi: </strong>{{blog.borndate.isoformat}}
+                    <strong>Yaradıldı: </strong>{{blog.lastmodified|date:"j F Y"}}<br>
+                    <strong>Yeniləndi: </strong>{{blog.borndate|date:"j F Y"}}
                 </p>
             </div>
         </div>
@@ -51,4 +53,6 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
+

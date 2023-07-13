@@ -49,9 +49,9 @@
           <ul class="navbar-nav ms-auto ">
             {%if user.is_authenticated%}
               <li class="nav-item" id="mvOffcanvasLink">
-                  <a class="nav-link" href="#">
+                  <a class="nav-link" href="{%url 'profile' user.username %}">
                     <strong class="navbarLink">
-                      Salam, {{user.get_full_name|title}}
+                      Hesab
                     </strong>
                   </a>
               </li>

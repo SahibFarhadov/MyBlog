@@ -4,6 +4,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import MyUser
 
+
+def hesab(request,_username):
+	return render(request,"Blog/hesab.html")
+
 #account app ucun login metodu
 def login_request(request):
 	if request.user.is_authenticated:
