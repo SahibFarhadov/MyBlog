@@ -3,10 +3,17 @@ from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import MyUser
+from Blog.models import Blog
 
 
 def hesab(request,_username):
-	return render(request,"Blog/hesab.html")
+	if request.user.is_authenticated:
+		blogs=Blog.objects.filter(user=request.user.myuser)
+		context={
+			"blogs":blogs
+		}
+		return render(request,"account/hesab.html",context)
+
 
 #account app ucun login metodu
 def login_request(request):
