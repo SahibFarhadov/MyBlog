@@ -6,14 +6,20 @@ from .models import MyUser
 from Blog.models import Blog
 
 
-def hesab(request,_username):
+def hesab(request):
+	return render(request,"account/hesab.html",context={
+		"is_hesab":True,
+	})
+
+def hesab_meqaleleri(request):
 	if request.user.is_authenticated:
 		blogs=Blog.objects.filter(user=request.user.myuser)
 		context={
-			"blogs":blogs
+			"blogs":blogs,
+			"is_meqalelerim":True,
 		}
-		return render(request,"account/hesab.html",context)
-
+		return render(request,"account/blog_in_hesab.html",context)
+	return render(request,"account/hesab.html")
 
 #account app ucun login metodu
 def login_request(request):

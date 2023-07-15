@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{%block title%}Elektroblog | Hesab{%endblock%}
+
+{%block content%}
+  {%include "account/partials/_hesab.html"%}
+  
+  <div class="container">
+    <h3 class="mt-2 mb-3">Yazdığınız məqalələr buradadır</h3>
+  {%for blog in blogs%}
+<div class="card mb-3 mt-3 p-3">
+  <div class="row g-0 mt-1 ms-1">
+    <div class="col-md-4">
+      <a href="{% url 'blog-details' blog.slug %}">
+        <img src="{{blog.image.url}}" class="img-fluid rounded-start" alt="{{blog.title}}">
+      </a>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <a href="{% url 'blog-details' blog.slug %}">
+          <h5 class="card-title">{{blog.titleofblog}}</h5>
+        </a>
+        <p class="card-text">
+          Kateqoriya - <b style="color:rgb(100,100,100)">{{blog.category}}</b>
+        </p>
+        {%if blog.user%}
+          <p class="card-text">
+            <a href="{%url 'meqale_yenile' blog.slug%}" class="btn btn-success">Redaktə et</a>
+            <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#silModal">Sil</button>
+
+            <div class="modal fade" id="silModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Məqalənin silinməsi</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <strong>{{blog.titleofblog}}</strong> başlıqlı məqalə silinəcək. Bu əməliyyat geri qaytarıla bilməz. Yenə də silmək istəyirsiniz?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-success" data-bs-dismiss="modal">Yox, məqalə dəyərlidir</button>
+                  <a type="button" class="btn btn-danger" href="#">Hə sil!</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          </p>
+        {%endif%}
+      </div>
+    </div>
+  </div>
+</div>
+  {%endfor%}
+</div>
+{%endblock%}
