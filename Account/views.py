@@ -15,9 +15,10 @@ def hesab(request):
 
 def hesab_meqaleleri(request):
 	if request.user.is_authenticated:
-		blogs=Blog.objects.filter(user=request.user.myuser)
+		blogs=Blog.objects.filter(user=request.user.myuser) # request eden user ile blogun useri eyni oldugunu yoxlayir
+		myblogs=blogs.order_by("-borndate","-lastmodified")
 		context={
-			"blogs":blogs.order_by("lastmodified"),
+			"blogs":myblogs,
 			"is_meqalelerim":True,
 		}
 		return render(request,"account/blog_in_hesab.html",context)

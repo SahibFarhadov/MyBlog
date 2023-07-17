@@ -9,7 +9,8 @@
   
   <div class="container">
     <h3 class="mt-2 mb-3">Yazdığınız məqalələr buradadır</h3>
-  {%if blogs%}
+  
+  {%if blogs%} <!-- Bloglarin oldugunu yoxlayan blogun baslangici -->
   {%for blog in blogs%}
 <div class="card mb-3 mt-3 p-3">
   <div class="row g-0 mt-1 ms-1">
@@ -27,8 +28,8 @@
           Kateqoriya - <b style="color:rgb(100,100,100)">{{blog.category}}</b>
         </p>
         <p class="card-text">
-          <strong>Yaradıldı: </strong>{{blog.borndate}}<br>
-          <strong>Redaktə edildi: </strong>{{blog.lastmodified}}
+          <strong>Yaradıldı: </strong>{{blog.borndate|date:"j F o G:i"}}<br>
+          <strong>Redaktə edildi: </strong>{{blog.lastmodified|date:"j F o G:i"}}
         </p>
         {%if blog.user%}
           <p class="card-text">
@@ -67,5 +68,6 @@
       </a>
     </h3>
   {%endif%}
+
 </div>
 {%endblock%}

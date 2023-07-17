@@ -21,7 +21,7 @@ class BlogCreateView(CreateView):
 	model=Blog
 	template_name="Blog/meqale_yaz.html"
 	form_class=AddBlogForm
-	success_url="/hesab/hesab-meqaleleri/"
+	success_url="/hesab/hesab-meqaleleri"
 	def form_valid(self,form):
 		form.instance.user=self.request.user.myuser
 		return super().form_valid(form)
@@ -50,15 +50,6 @@ def home(request):
 		"categories":categories
 	}
 	return render(request,"blog/index.html",context)
-
-def blogs(request):
-	blogs=Blog.objects.all()
-	categories=Category.objects.all()
-	context={
-		"blogs":blogs,
-		"categories":categories
-	}
-	return render(request,"blog/blogs.html",context)
 
 def blog_details(request,_slug):
 	blog=Blog.objects.get(slug=_slug)

@@ -23,8 +23,8 @@ class Blog(models.Model):
     is_home = models.BooleanField(verbose_name="Ana səhifə aktiv")
     slug = models.SlugField(editable=False,unique=True,db_index=True,null=True)
     category = models.ForeignKey(Category,on_delete=models.CASCADE,null=True)
-    lastmodified = models.DateField("Sonuncu deyişiklik tarixi",auto_now=True,blank=True,null=True)
-    borndate = models.DateField("Yaranma tarixi",auto_now_add=True,blank=True,null=True)
+    lastmodified = models.DateTimeField("Sonuncu deyişiklik tarixi",auto_now=True,blank=True,null=True)
+    borndate = models.DateTimeField("Yaranma tarixi",auto_now_add=True,blank=True,null=True)
     snippet = models.CharField(max_length=50,default="Davamını oxumaq üçün klikləyin...",blank=True,null=True)
     user=models.ForeignKey(MyUser,on_delete=models.CASCADE,null=True)
 
@@ -37,4 +37,4 @@ class Blog(models.Model):
         super().save(*args,**kwargs)
 
     def get_absolute_url(self):
-        return reverse("blogs")
+        return reverse("home")
