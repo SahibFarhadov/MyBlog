@@ -5,9 +5,22 @@
 {%block content%}
 	{%include "account/partials/_hesab.html"%}
 	
-	<div class="container">
-		<h1>HI</h1>
+	<div class="container mt-3">
+		<form method="post">
+			{%csrf_token%}
+			<div class="mb-3">
+				{% for field in user_form%}
+					<label class="form-label">{{field.label}}:</label><br>{{field}}<br>
+				{%endfor%}
+			</div>
+			<div class="mb-3">
+				{% for field in myuser_form%}
+					<label class="form-label">{{field.label}}:</label><br>{{field}}<br>
+				{%endfor%}
+			</div>
+			<button class="btn btn-primary" type="submit">Yadda saxla</button>
+		</form>
 	</div>
-
+	
 {%endblock%}
 

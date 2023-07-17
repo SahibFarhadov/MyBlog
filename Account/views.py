@@ -4,12 +4,17 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import MyUser
 from Blog.models import Blog
+from .forms import UserForm,MyUserForm
 
 
 def hesab(request):
 	if request.user.is_authenticated:
+		user_form=UserForm(instance=request.user)
+		myuser_form=MyUserForm(instance=request.user.myuser)
 		return render(request,"account/hesab.html",context={
 		"is_hesab":True,
+		'user_form':user_form,
+		'myuser_form':myuser_form,
 	})
 	return redirect("login")
 

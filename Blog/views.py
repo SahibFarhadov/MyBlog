@@ -7,6 +7,7 @@ from Account import views as account_views
 from django.core.exceptions import ObjectDoesNotExist
 
 
+# blog update view
 class BlogUpdateView(UpdateView):
 	model=Blog
 	fields=["titleofblog","image","description","is_active","is_home","category",]
@@ -17,6 +18,7 @@ class BlogUpdateView(UpdateView):
 			return redirect("login")
 		return super().dispatch(request,*args,**kwargs)
 
+#blog create view
 class BlogCreateView(CreateView):
 	model=Blog
 	template_name="Blog/meqale_yaz.html"
@@ -31,6 +33,7 @@ class BlogCreateView(CreateView):
 			return redirect("login")
 		return super().dispatch(request,*args,*kwargs)
 
+#blog delete function
 def delete_blog(request,_slug):
 	if request.user.is_authenticated:
 		try:
@@ -42,6 +45,7 @@ def delete_blog(request,_slug):
 	return account_views.hesab_meqaleleri(request)
 
 
+#home page function
 def home(request):
 	blogs=Blog.objects.all()
 	categories=Category.objects.all()
@@ -51,6 +55,7 @@ def home(request):
 	}
 	return render(request,"blog/index.html",context)
 
+#blog details function
 def blog_details(request,_slug):
 	blog=Blog.objects.get(slug=_slug)
 	userBlog=None
@@ -62,6 +67,7 @@ def blog_details(request,_slug):
 	}
 	return render(request,"blog/blog-details.html",context)
 
+#kateqoriyaya gore blog cekme funksiyasi
 def blogs_by_category(request,_slug):
 	categories = Category.objects.all()
 	selectedCategory=Category.objects.get(slug=_slug)
@@ -72,6 +78,3 @@ def blogs_by_category(request,_slug):
 		"selectedCategory":selectedCategory
 	}
 	return render(request,"blog/blogs_by_category.html",context)
-
-def meqale_yaz(request):
-	return render(request,'blog/meqale_yaz.html')
