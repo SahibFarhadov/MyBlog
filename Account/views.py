@@ -11,11 +11,18 @@ def hesab(request):
 	if request.user.is_authenticated:
 		user_form=UserForm(instance=request.user)
 		myuser_form=MyUserForm(instance=request.user.myuser)
-		return render(request,"account/hesab.html",context={
-		"is_hesab":True,
-		'user_form':user_form,
-		'myuser_form':myuser_form,
-	})
+		context={
+			'is_hesab':True,
+			'user_form':user_form,
+			'myuser_form':myuser_form,
+		}
+		if request.method=="POST":
+			user_form=UserForm(request.POST,instance=request.user)
+			myuser_form=MyUserForm(request.POST,instance=request.user.myuser)
+			user_form.save()
+			myuser_form.save()
+			return redirect("profile")
+		return render(request,"account/hesab.html",context)
 	return redirect("login")
 
 def hesab_meqaleleri(request):
