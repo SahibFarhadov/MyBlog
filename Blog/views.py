@@ -53,7 +53,7 @@ def home(request):
 		"blogs":blogs,
 		"categories":categories
 	}
-	return render(request,"blog/index.html",context)
+	return render(request,"Blog/index.html",context)
 
 #blog details function
 def blog_details(request,_slug):
@@ -65,7 +65,7 @@ def blog_details(request,_slug):
 		"blog":blog,
 		"userBlog":userBlog
 	}
-	return render(request,"blog/blog-details.html",context)
+	return render(request,"Blog/blog-details.html",context)
 
 #kateqoriyaya gore blog cekme funksiyasi
 def blogs_by_category(request,_slug):
@@ -77,4 +77,4 @@ def blogs_by_category(request,_slug):
 		"categories":categories,
 		"selectedCategory":selectedCategory
 	}
-	return render(request,"blog/blogs_by_category.html",context)
+	return render(request,"Blog/blogs_by_category.html",context)
