@@ -49,11 +49,11 @@ def login_request(request):
 			login(request,user)
 			return redirect("home")
 		else:
-			return render(request,"Account/login.html",{
+			return render(request,"account/login.html",{
 				"error":"İstifadəçi adı və ya parol yanlışdır",
 				"username":username
 				})
-	return render(request,"Account/login.html")
+	return render(request,"account/login.html")
 
 # account app ucun register metodu
 def register_request(request):
@@ -80,15 +80,15 @@ def register_request(request):
 		if password==repassword:
 			if User.objects.filter(username=nickname).exists():
 				dataKeep["errorMessage"]="Daxil edilən istifadəçi adı artıq mövcuddur"
-				return render(request, "Account/register.html", dataKeep )
+				return render(request, "account/register.html", dataKeep )
 			elif User.objects.filter(email=email).exists():
 				dataKeep["errorMessage"]="Daxil edilən email ünvanı artıq istifadə edilmişdir"
-				return render(request, "Account/register.html", dataKeep )
+				return render(request, "account/register.html", dataKeep )
 			else:
 				user=User.objects.create_user(username=nickname,first_name=name,last_name=surname,password=password,email=email)
 				return redirect("login")
 		
-	return render(request,"Account/register.html")
+	return render(request,"account/register.html")
 
 #account app ucun logout metodu
 def logout_request(request):
