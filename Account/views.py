@@ -6,6 +6,29 @@ from .models import MyUser
 from Blog.models import Blog
 from .forms import UserForm,MyUserForm
 
+def meqale_sirala(request,order_by):
+	if order_by=="titleofblogAZ":
+		order_by1="titleofblog"
+		return hesab_meqaleleri(request,order_by1)
+	elif order_by=="titleofblogZA":
+		order_by1="-titleofblog"
+		return hesab_meqaleleri(request,order_by1)
+	elif order_by=="titleofblogZA":
+		order_by1="-titleofblog"
+		return hesab_meqaleleri(request,order_by1)
+	elif order_by=="borndateacs":
+		order_by1="borndate"
+		return hesab_meqaleleri(request,order_by1)
+	elif order_by=="borndatedec":
+		order_by1="-borndate"
+		return hesab_meqaleleri(request,order_by1)
+	elif order_by=="lastmodifiedacs":
+		order_by1="lastmodified"
+		return hesab_meqaleleri(request,order_by1)
+	elif order_by=="lastmodifieddec":
+		order_by1="-lastmodified"
+		return hesab_meqaleleri(request,order_by1)
+	return hesab_meqaleleri(request,order_by)
 
 def hesab(request):
 	if request.user.is_authenticated:
@@ -25,13 +48,14 @@ def hesab(request):
 		return render(request,"account/hesab.html",context)
 	return redirect("login")
 
-def hesab_meqaleleri(request):
+def hesab_meqaleleri(request,order_by="-borndate"):
 	if request.user.is_authenticated:
 		blogs=Blog.objects.filter(user=request.user.myuser) # request eden user ile blogun useri eyni oldugunu yoxlayir
-		myblogs=blogs.order_by("-borndate","-lastmodified")
+		myblogs=blogs.order_by(order_by)
 		context={
 			"blogs":myblogs,
 			"is_meqalelerim":True,
+			"sort_string":order_by,
 		}
 		return render(request,"account/blog_in_hesab.html",context)
 	return redirect("login")

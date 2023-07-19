@@ -9,7 +9,20 @@
   
   <div class="container">
     <h3 class="mt-2 mb-3">Yazdığınız məqalələr buradadır</h3>
-  
+    <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Sırala</a>
+
+      <ul class="dropdown-menu">
+          <li><a class="dropdown-item active" href="{%url 'meqale_sirala' 'titleofblogAZ' %}">Başlığa görə(A-Z)</a></li>
+          <li><a class="dropdown-item" href="{%url 'meqale_sirala' 'titleofblogZA' %}">Başlığa görə(Z-A)</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="{%url 'meqale_sirala' 'borndateacs' %}">Yaranam tarixinə görə(artan)</a></li>
+          <li><a class="dropdown-item" href="{%url 'meqale_sirala' 'borndatedec' %}">Yaranam tarixinə görə(azalan)</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="{%url 'meqale_sirala' 'lastmodifiedacs' %}">Redaktə tarixinə görə(artan)</a></li>
+          <li><a class="dropdown-item" href="{%url 'meqale_sirala' 'lastmodifieddec' %}">Redaktə tarixinə görə(azalan)</a></li>
+      </ul>
+    </div>
   {%if blogs%} <!-- Bloglarin oldugunu yoxlayan blogun baslangici -->
   {%for blog in blogs%}
 <div class="card mb-3 mt-3 p-3">
