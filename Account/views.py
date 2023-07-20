@@ -7,27 +7,6 @@ from Blog.models import Blog
 from .forms import UserForm,MyUserForm
 
 def meqale_sirala(request,order_by):
-	if order_by=="titleofblogAZ":
-		order_by1="titleofblog"
-		return hesab_meqaleleri(request,order_by1)
-	elif order_by=="titleofblogZA":
-		order_by1="-titleofblog"
-		return hesab_meqaleleri(request,order_by1)
-	elif order_by=="titleofblogZA":
-		order_by1="-titleofblog"
-		return hesab_meqaleleri(request,order_by1)
-	elif order_by=="borndateacs":
-		order_by1="borndate"
-		return hesab_meqaleleri(request,order_by1)
-	elif order_by=="borndatedec":
-		order_by1="-borndate"
-		return hesab_meqaleleri(request,order_by1)
-	elif order_by=="lastmodifiedacs":
-		order_by1="lastmodified"
-		return hesab_meqaleleri(request,order_by1)
-	elif order_by=="lastmodifieddec":
-		order_by1="-lastmodified"
-		return hesab_meqaleleri(request,order_by1)
 	return hesab_meqaleleri(request,order_by)
 
 def hesab(request):
@@ -50,8 +29,23 @@ def hesab(request):
 
 def hesab_meqaleleri(request,order_by="-borndate"):
 	if request.user.is_authenticated:
+		order_by1="borndate"
+		if order_by=="titleofblogAZ":
+			order_by1="titleofblog"
+		elif order_by=="titleofblogZA":
+			order_by1="-titleofblog"
+		elif order_by=="titleofblogZA":
+			order_by1="-titleofblog"
+		elif order_by=="borndateacs":
+			order_by1="borndate"
+		elif order_by=="borndatedec":
+			order_by1="-borndate"
+		elif order_by=="lastmodifiedacs":
+			order_by1="lastmodified"
+		elif order_by=="lastmodifieddec":
+			order_by1="-lastmodified"
 		blogs=Blog.objects.filter(user=request.user.myuser) # request eden user ile blogun useri eyni oldugunu yoxlayir
-		myblogs=blogs.order_by(order_by)
+		myblogs=blogs.order_by(order_by1)
 		context={
 			"blogs":myblogs,
 			"is_meqalelerim":True,
