@@ -5,8 +5,8 @@
 {%block content%}
 	{%include "account/partials/_hesab.html"%}
 	
-	<div class="container mt-3">
-		<form method="post">
+	<div class="container mt-3 mb-3">
+		<form method="post" class="mb-3">
 			{%csrf_token%}
 			<div class="mb-3">
 				{% for field in user_form%}

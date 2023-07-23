@@ -27,9 +27,9 @@ def hesab(request):
 		return render(request,"account/hesab.html",context)
 	return redirect("login")
 
-def hesab_meqaleleri(request,order_by="-borndate"):
+def hesab_meqaleleri(request,order_by="borndatedec"):
 	if request.user.is_authenticated:
-		order_by1="borndate"
+		order_by1=""
 		if order_by=="titleofblogAZ":
 			order_by1="titleofblog"
 		elif order_by=="titleofblogZA":

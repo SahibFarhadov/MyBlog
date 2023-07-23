@@ -12,6 +12,7 @@ class BlogUpdateView(UpdateView):
 	model=Blog
 	fields=["titleofblog","image","description","is_active","is_home","category",]
 	template_name="Blog/meqale_yenile.html"
+	success_url="/hesab/hesab-meqaleleri/"
 
 	def dispatch(self,request,*args,**kwargs):
 		if not request.user.is_authenticated:
