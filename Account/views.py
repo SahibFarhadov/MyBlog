@@ -46,9 +46,10 @@ def hesab_meqaleleri(request,order_by="borndatedec"):
 			order_by1="lastmodified"
 		elif order_by=="lastmodifieddec":
 			order_by1="-lastmodified"
-		gosterme_sayi=5
+		gosterme_sayi=1
 		if request.GET.get("gosterme_sayi"):
-			gosterme_sayi=request.GET.get("gosterme_sayi")	
+			gosterme_sayi=request.GET.get("gosterme_sayi")
+		gosterme_elements=[1,2,3]
 		blogs=Blog.objects.filter(user=request.user.myuser) # request eden user ile blogun useri eyni oldugunu yoxlayir
 		myblogs=blogs.order_by(order_by1)
 		paginator = Paginator(myblogs,gosterme_sayi)
@@ -59,6 +60,8 @@ def hesab_meqaleleri(request,order_by="borndatedec"):
 			"is_meqalelerim":True,
 			"sort_string":order_by,
 			"page_obj":page_obj,
+			"gosterme_elements":gosterme_elements,
+			"gosterme_sayi":int(gosterme_sayi),
 		}
 		return render(request,"account/blog_in_hesab.html",context)
 	return redirect("login")

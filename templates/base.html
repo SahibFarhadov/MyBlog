@@ -17,21 +17,6 @@
         {% block content %}{% endblock %}
             <script src="{% static 'scripts/bootstrap.bundle.min.js' %}"></script>
         {%block scripts%}{%endblock%}
-        <script>
-            let length={{objs_length}};
-            let paginationContainer=document.getElementById('pagination')
-            console.log(length)
-            for(let x=0;x<length/10;x++){
-                let node_li=document.createElement("li") //li element
-                let node_a=document.createElement("a") //a element
-                let text_node=document.createTextNode(x+1) // create text node
-                node_li.setAttribute("class","page-item")
-                node_a.setAttribute("class","page-link")
-                node_a.setAttribute("href",`/esas/${x+1}`)
-                node_a.appendChild(text_node)
-                node_li.appendChild(node_a)
-                paginationContainer.appendChild(node_li)
-            }
-        </script>
+        
     </body>
 </html>

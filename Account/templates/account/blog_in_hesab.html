@@ -28,9 +28,9 @@
       <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Göstər</a>
 
       <ul class="dropdown-menu">
-          <li><a href="?gosterme_sayi=1" class="dropdown-item active">5</a></li>
-          <li><a href="?gosterme_sayi=2" class="dropdown-item">10</a></li>
-          <li><a href="?gosterme_sayi=3" class="dropdown-item">15</a></li>
+          {%for gosterme_element in gosterme_elements %}
+            <li><a href="?gosterme_sayi={{gosterme_element}}" class="dropdown-item {%if gosterme_element == gosterme_sayi%}active{%endif%}">{{gosterme_element}}</a></li>
+          {%endfor%}
       </ul>
     </div>
   {%if blogs%} <!-- Bloglarin oldugunu yoxlayan blogun baslangici -->
