@@ -47,12 +47,19 @@ def delete_blog(request,_slug):
 
 
 #home page function
-def home(request):
-	blogs=Blog.objects.all()
+def home(request,pageNumber=1):
+	blogs=Blog.objects.filter(is_active=True)
+	if pageNumber==1:
+		filtered_blogs=blogs[(pageNumber-1)*10:(blogs.count()/pageNumber)*10]
+	else:
+		filtered_blogs=blogs[(pageNumber-1)*10:(blogs.count()/pageNumber)*10]
+		
 	categories=Category.objects.all()
 	context={
-		"blogs":blogs,
-		"categories":categories
+		"blogs":filtered_blogs,
+		"categories":categories,
+		"objs_length":blogs.count,
+		"pageNumber":pageNumber
 	}
 	return render(request,"Blog/index.html",context)
 
@@ -72,10 +79,11 @@ def blog_details(request,_slug):
 def blogs_by_category(request,_slug):
 	categories = Category.objects.all()
 	selectedCategory=Category.objects.get(slug=_slug)
-	blogs=Blog.objects.filter(category__slug=_slug)
+	blogs=Blog.objects.filter(category__slug=_slug,is_active=True)
 	context={
 		"blogs":blogs,
 		"categories":categories,
-		"selectedCategory":selectedCategory
+		"selectedCategory":selectedCategory,
+		"objs_length":blogs.count,
 	}
 	return render(request,"Blog/blogs_by_category.html",context)

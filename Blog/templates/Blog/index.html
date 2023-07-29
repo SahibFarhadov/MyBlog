@@ -14,10 +14,15 @@
         </div>
         <div class="col-md-9">
             {% for blog in blogs %}
-                {% if blog.is_home %}
+                {% if blog.is_active %}
                     {% include 'Blog/partials/_blog.html' %}
                 {% endif %}
             {% endfor %}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            {%include 'Blog/partials/_pagination.html'%}
         </div>
     </div>
 </div>

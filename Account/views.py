@@ -86,6 +86,8 @@ def register_request(request):
 		email=request.POST["email"]
 		password=request.POST["password"]
 		repassword=request.POST["repassword"]
+		name=name.capitalize()
+		surname=surname.capitalize()
 
 		errorMessage=""
 		dataKeep={
@@ -97,14 +99,13 @@ def register_request(request):
 		}
 
 		if (password==repassword):
-			yoxlama=re.search(ad, parol)
-			if len(parol)<8: #parolun uzunlugunun yoxlanilmasi
-				return (False,"Parol 8-dən qısadır")
-			elif yoxlama is None: # Parolda istifadəçi adının istifadə edilməsi
-				return (False, "Parolda adınızdan istifadə edə bilməzsiniz")
-			else:
-				return (True,"ok")
-			if len(password)>=8:
+			if len(password)<8: #parolun uzunlugunun yoxlanilmasi
+				dataKeep["errorMessage"]="Şifrə 8-dən qısadır"
+				return render(request,"account/register.html", dataKeep)
+			elif re.search(name.lower(),password.lower()) is not None:  # Parolda istifadəçi adının istifadə edilməsi
+				dataKeep["errorMessage"]="Şifrədə adınızdan istifadə edə bilməzsiniz"
+				return render(request,"account/register.html", dataKeep)
+			elif len(password)>=8:
 				if User.objects.filter(username=nickname).exists():
 					dataKeep["errorMessage"]="Daxil edilən istifadəçi adı artıq mövcuddur"
 					return render(request, "account/register.html", dataKeep )
@@ -113,11 +114,7 @@ def register_request(request):
 					return render(request, "account/register.html", dataKeep )
 				else:
 					user=User.objects.create_user(username=nickname,first_name=name,last_name=surname,password=password,email=email)
-					return redirect("login")
-			else:
-				dataKeep["errorMessage"]="Şifrə çox qısadır"
-				return render(request,"account/register.html", dataKeep)
-		
+					return redirect("login")	
 	return render(request,"account/register.html")
 
 #account app ucun logout metodu
