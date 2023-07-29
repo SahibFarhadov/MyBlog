@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import MyUser
 from Blog.models import Blog
 from .forms import UserForm,MyUserForm
+import re
 
 def meqale_sirala(request,order_by):
 	return hesab_meqaleleri(request,order_by)
@@ -95,16 +96,27 @@ def register_request(request):
 			"errorMessage":errorMessage
 		}
 
-		if password==repassword:
-			if User.objects.filter(username=nickname).exists():
-				dataKeep["errorMessage"]="Daxil edilən istifadəçi adı artıq mövcuddur"
-				return render(request, "account/register.html", dataKeep )
-			elif User.objects.filter(email=email).exists():
-				dataKeep["errorMessage"]="Daxil edilən email ünvanı artıq istifadə edilmişdir"
-				return render(request, "account/register.html", dataKeep )
+		if (password==repassword):
+			yoxlama=re.search(ad, parol)
+			if len(parol)<8: #parolun uzunlugunun yoxlanilmasi
+				return (False,"Parol 8-dən qısadır")
+			elif yoxlama is None: # Parolda istifadəçi adının istifadə edilməsi
+				return (False, "Parolda adınızdan istifadə edə bilməzsiniz")
 			else:
-				user=User.objects.create_user(username=nickname,first_name=name,last_name=surname,password=password,email=email)
-				return redirect("login")
+				return (True,"ok")
+			if len(password)>=8:
+				if User.objects.filter(username=nickname).exists():
+					dataKeep["errorMessage"]="Daxil edilən istifadəçi adı artıq mövcuddur"
+					return render(request, "account/register.html", dataKeep )
+				elif User.objects.filter(email=email).exists():
+					dataKeep["errorMessage"]="Daxil edilən email ünvanı artıq istifadə edilmişdir"
+					return render(request, "account/register.html", dataKeep )
+				else:
+					user=User.objects.create_user(username=nickname,first_name=name,last_name=surname,password=password,email=email)
+					return redirect("login")
+			else:
+				dataKeep["errorMessage"]="Şifrə çox qısadır"
+				return render(request,"account/register.html", dataKeep)
 		
 	return render(request,"account/register.html")
 
@@ -112,3 +124,15 @@ def register_request(request):
 def logout_request(request):
 	logout(request)
 	return redirect("home")
+
+
+
+#parolu yoxlamaq ucun proqramdir tuple qaytarir. Birinci deyeri True or False ikinci deyeri string formatindan error mesaji qaytarir
+def paroluYoxla(parol,ad):
+	yoxlama=re.search(ad, parol)
+	if len(parol)<8: #parolun uzunlugunun yoxlanilmasi
+		return (False,"Parol 8-dən qısadır")
+	elif yoxlama is None: # Parolda istifadəçi adının istifadə edilməsi
+		return (False, "Parolda adınızdan istifadə edə bilməzsiniz")
+	else:
+		return (True,"ok")
