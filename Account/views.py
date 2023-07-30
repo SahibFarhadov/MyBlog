@@ -46,12 +46,14 @@ def hesab_meqaleleri(request,order_by="borndatedec"):
 			order_by1="lastmodified"
 		elif order_by=="lastmodifieddec":
 			order_by1="-lastmodified"
-		gosterme_sayi=1
+		gosterme_sayi=10
 		if request.GET.get("gosterme_sayi"):
 			gosterme_sayi=request.GET.get("gosterme_sayi")
-		gosterme_elements=[1,2,3]
+		gosterme_elements=[10,20,30]
 		blogs=Blog.objects.filter(user=request.user.myuser) # request eden user ile blogun useri eyni oldugunu yoxlayir
 		myblogs=blogs.order_by(order_by1)
+		if len(blogs)<=gosterme_elements[0]:
+			gosterme_elements=gosterme_elements[:1]
 		paginator = Paginator(myblogs,gosterme_sayi)
 		page_number=request.GET.get("page")
 		page_obj=paginator.get_page(page_number)

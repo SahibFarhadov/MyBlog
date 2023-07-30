@@ -49,15 +49,27 @@ def delete_blog(request,_slug):
 
 #home page function
 def home(request):
+	gosterme_sayi=10
+	if request.GET.get("gosterme_sayi"):
+		gosterme_sayi=request.GET.get("gosterme_sayi")
+	gosterme_elements=[10,20,30]
 	blogs=Blog.objects.filter(is_active=True)
-	paginator=Paginator(blogs,5)
+	if len(blogs)<=gosterme_elements[0]:
+		gosterme_elements=gosterme_elements[:1]
+	elif (len(blogs)>gosterme_elements[0]) and (len(blogs)<=gosterme_elements[1]):
+		gosterme_elements=gosterme_elements[:2]
+	else:
+		gosterme_elements=gosterme_elements[:3]
+	paginator=Paginator(blogs,gosterme_sayi)
 	categories=Category.objects.all()
 	page_number=request.GET.get("page")
 	page_obj=paginator.get_page(page_number)
-	context={
+	context = {
 		"blogs":page_obj,
 		"categories":categories,
 		"page_obj":page_obj,
+		"gosterme_elements":gosterme_elements,
+		"gosterme_sayi":int(gosterme_sayi),
 	}
 	return render(request,"Blog/index.html",context)
 
