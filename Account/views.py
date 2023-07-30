@@ -6,6 +6,7 @@ from .models import MyUser
 from Blog.models import Blog
 from .forms import UserForm,MyUserForm
 import re
+from django.core.paginator import Paginator
 
 def meqale_sirala(request,order_by):
 	return hesab_meqaleleri(request,order_by)
@@ -45,12 +46,19 @@ def hesab_meqaleleri(request,order_by="borndatedec"):
 			order_by1="lastmodified"
 		elif order_by=="lastmodifieddec":
 			order_by1="-lastmodified"
+		gosterme_sayi=5
+		if request.GET.get("gosterme_sayi"):
+			gosterme_sayi=request.GET.get("gosterme_sayi")	
 		blogs=Blog.objects.filter(user=request.user.myuser) # request eden user ile blogun useri eyni oldugunu yoxlayir
 		myblogs=blogs.order_by(order_by1)
+		paginator = Paginator(myblogs,gosterme_sayi)
+		page_number=request.GET.get("page")
+		page_obj=paginator.get_page(page_number)
 		context={
-			"blogs":myblogs,
+			"blogs":page_obj,
 			"is_meqalelerim":True,
 			"sort_string":order_by,
+			"page_obj":page_obj,
 		}
 		return render(request,"account/blog_in_hesab.html",context)
 	return redirect("login")

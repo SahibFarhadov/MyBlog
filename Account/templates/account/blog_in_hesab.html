@@ -9,7 +9,7 @@
   
   <div class="container">
     <h3 class="mt-2 mb-3">Yazdığınız məqalələr buradadır</h3>
-    <div class="dropdown">
+    <div class="btn-group">
       <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Sırala</a>
 
       <ul class="dropdown-menu">
@@ -22,6 +22,15 @@
           <li><hr class="dropdown-divider"></li>
           <li><a class="dropdown-item {%if sort_string == 'lastmodifiedacs'%} active {%endif%}" href="{%url 'meqale_sirala' 'lastmodifiedacs' %}">Redaktə tarixinə görə artan</a></li>
           <li><a class="dropdown-item {%if sort_string == 'lastmodifieddec'%} active {%endif%}" href="{%url 'meqale_sirala' 'lastmodifieddec' %}">Redaktə tarixinə görə azalan</a></li>
+      </ul>
+    </div>
+    <div class="btn-group dropdown-center">
+      <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Göstər</a>
+
+      <ul class="dropdown-menu">
+          <li><a href="?gosterme_sayi=1" class="dropdown-item active">5</a></li>
+          <li><a href="?gosterme_sayi=2" class="dropdown-item">10</a></li>
+          <li><a href="?gosterme_sayi=3" class="dropdown-item">15</a></li>
       </ul>
     </div>
   {%if blogs%} <!-- Bloglarin oldugunu yoxlayan blogun baslangici -->
@@ -82,6 +91,10 @@
       </a>
     </h3>
   {%endif%}
+
+  <div class="row">
+    {% include "Blog/partials/_pagination.html" %}
+  </div>
 
 </div>
 {%endblock%}

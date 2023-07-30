@@ -5,6 +5,7 @@ from .forms import AddBlogForm
 from django.contrib.auth.models import User
 from Account import views as account_views
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.paginator import Paginator
 
 
 # blog update view
@@ -47,19 +48,16 @@ def delete_blog(request,_slug):
 
 
 #home page function
-def home(request,pageNumber=1):
+def home(request):
 	blogs=Blog.objects.filter(is_active=True)
-	if pageNumber==1:
-		filtered_blogs=blogs[(pageNumber-1)*10:(blogs.count()/pageNumber)*10]
-	else:
-		filtered_blogs=blogs[(pageNumber-1)*10:(blogs.count()/pageNumber)*10]
-		
+	paginator=Paginator(blogs,5)
 	categories=Category.objects.all()
+	page_number=request.GET.get("page")
+	page_obj=paginator.get_page(page_number)
 	context={
-		"blogs":filtered_blogs,
+		"blogs":page_obj,
 		"categories":categories,
-		"objs_length":blogs.count,
-		"pageNumber":pageNumber
+		"page_obj":page_obj,
 	}
 	return render(request,"Blog/index.html",context)
 
@@ -77,13 +75,16 @@ def blog_details(request,_slug):
 
 #kateqoriyaya gore blog cekme funksiyasi
 def blogs_by_category(request,_slug):
+	blogs=Blog.objects.filter(category__slug=_slug,is_active=True)
+	paginator=Paginator(blogs,5)
+	page_number=request.GET.get("page")
+	page_obj=paginator.get_page(page_number)
 	categories = Category.objects.all()
 	selectedCategory=Category.objects.get(slug=_slug)
-	blogs=Blog.objects.filter(category__slug=_slug,is_active=True)
 	context={
-		"blogs":blogs,
+		"blogs":page_obj,
 		"categories":categories,
 		"selectedCategory":selectedCategory,
-		"objs_length":blogs.count,
+		"page_obj":page_obj
 	}
 	return render(request,"Blog/blogs_by_category.html",context)
